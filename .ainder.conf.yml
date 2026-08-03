@@ -1,0 +1,2 @@
+model: lm_studio/qwen/qwen3-coder-30b
+edit-format: diff
