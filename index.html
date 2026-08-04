@@ -68,6 +68,58 @@
             opacity: 1;
             transform: none;
         }
+
+        /* Lightbox da Galeria */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .lightbox-close:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .lightbox-close svg {
+            width: 24px;
+            height: 24px;
+            color: #000;
+        }
     </style>
 </head>
 <body class="text-gray-700 bg-white antialiased">
@@ -357,55 +409,55 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 fade-in-section">
                 <!-- Imagens Placeholder -->
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/sika.png" alt="Projeto Sika" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/sika.png" alt="Projeto Sika" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto Sika</span>
                     </div>
                 </div>
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/bobina.png" alt="Projeto Bobina" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/bobina.png" alt="Projeto Bobina" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto Bobina</span>
                     </div>
                 </div>
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/monovia.png" alt="Projeto Monovia" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/monovia.png" alt="Projeto Monovia" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto Monovia</span>
                     </div>
                 </div>
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/plataforma-cs.png" alt="Projeto Plataforma CS" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/plataforma-cs.png" alt="Projeto Plataforma CS" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto Plataforma CS</span>
                     </div>
                 </div>
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/trocador-calor.png" alt="Projeto Trocador de Calor" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/trocador-calor.png" alt="Projeto Trocador de Calor" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto Trocador de Calor</span>
                     </div>
                 </div>
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/rmv.png" alt="Projeto RMV" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/rmv.png" alt="Projeto RMV" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto RMV</span>
                     </div>
                 </div>
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/prateleiras.png" alt="Projeto Prateleiras Industriais" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/prateleiras.png" alt="Projeto Prateleiras Industriais" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto Prateleiras Industriais</span>
                     </div>
                 </div>
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/Cobertura.JPG" alt="Projeto Cobertura" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/Cobertura.JPG" alt="Projeto Cobertura" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto Cobertura</span>
                     </div>
                 </div>
                 <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="images/projects/Cobertura.png" alt="Projeto Cobertura" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
+                    <img src="images/projects/Cobertura.png" alt="Projeto Cobertura" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500 lightbox-trigger">
                     <div class="absolute inset-0 bg-brand-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <span class="text-white font-bold">Projeto Cobertura</span>
                     </div>
@@ -641,6 +693,54 @@
 
         document.querySelectorAll('.fade-in-section').forEach(section => {
             observer.observe(section);
+        });
+
+        // Lightbox da Galeria
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightboxOverlay = document.createElement('div');
+            lightboxOverlay.className = 'lightbox-overlay';
+            lightboxOverlay.innerHTML = `
+                <div class="lightbox-content">
+                    <span class="lightbox-close">&times;</span>
+                    <img src="" alt="" class="lightbox-image">
+                </div>
+            `;
+            document.body.appendChild(lightboxOverlay);
+
+            const lightboxImage = lightboxOverlay.querySelector('.lightbox-image');
+            const lightboxClose = lightboxOverlay.querySelector('.lightbox-close');
+
+            // Adicionar evento de clique para todas as imagens com a classe lightbox-trigger
+            document.querySelectorAll('.lightbox-trigger').forEach(img => {
+                img.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    lightboxImage.src = this.src;
+                    lightboxOverlay.style.display = 'flex';
+                    document.body.style.overflow = 'hidden'; // Evitar scroll ao abrir o lightbox
+                });
+            });
+
+            // Fechar lightbox ao clicar no botão X
+            lightboxClose.addEventListener('click', function() {
+                lightboxOverlay.style.display = 'none';
+                document.body.style.overflow = ''; // Restaurar scroll
+            });
+
+            // Fechar lightbox ao clicar fora da imagem
+            lightboxOverlay.addEventListener('click', function(e) {
+                if (e.target === lightboxOverlay) {
+                    lightboxOverlay.style.display = 'none';
+                    document.body.style.overflow = ''; // Restaurar scroll
+                }
+            });
+
+            // Fechar lightbox com a tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightboxOverlay.style.display === 'flex') {
+                    lightboxOverlay.style.display = 'none';
+                    document.body.style.overflow = ''; // Restaurar scroll
+                }
+            });
         });
 
         function submitContactForm(form) {
