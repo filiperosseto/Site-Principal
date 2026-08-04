@@ -73,14 +73,12 @@
         .lightbox-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.85);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 1rem;
         }
 
         .lightbox-content {
@@ -88,6 +86,33 @@
             max-width: 90vw;
             max-height: 90vh;
         }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover { background-color: rgba(255,255,255,1); }
 
         .lightbox-image {
             max-width: 100%;
@@ -697,52 +722,57 @@
         });
 
         // Lightbox da Galeria
-        document.addEventListener('DOMContentLoaded', function() {
+        (function() {
+            // cria overlay uma vez
             const lightboxOverlay = document.createElement('div');
             lightboxOverlay.className = 'lightbox-overlay';
-            lightboxOverlay.innerHTML = `
-                <div class="lightbox-content">
-                    <span class="lightbox-close">&times;</span>
-                    <img src="" alt="" class="lightbox-image">
-                </div>
-            `;
+            lightboxOverlay.setAttribute('aria-hidden', 'true');
+            lightboxOverlay.innerHTML = '<div class="lightbox-content">'
+                + '<button class="lightbox-close" aria-label="Fechar">&times;</button>'
+                + '<img class="lightbox-image" src="" alt="">'
+                + '</div>';
             document.body.appendChild(lightboxOverlay);
 
             const lightboxImage = lightboxOverlay.querySelector('.lightbox-image');
             const lightboxClose = lightboxOverlay.querySelector('.lightbox-close');
 
-            // Adicionar evento de clique para todas as imagens com a classe lightbox-trigger
-            document.querySelectorAll('.lightbox-trigger').forEach(img => {
-                img.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    lightboxImage.src = this.src;
-                    lightboxOverlay.style.display = 'flex';
-                    document.body.style.overflow = 'hidden'; // Evitar scroll ao abrir o lightbox
-                });
-            });
+            function openLightbox(src, alt) {
+                lightboxImage.src = src;
+                lightboxImage.alt = alt || '';
+                lightboxOverlay.style.display = 'flex';
+                lightboxOverlay.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                lightboxClose.focus();
+            }
 
-            // Fechar lightbox ao clicar no botão X
-            lightboxClose.addEventListener('click', function() {
+            function closeLightbox() {
                 lightboxOverlay.style.display = 'none';
-                document.body.style.overflow = ''; // Restaurar scroll
-            });
+                lightboxOverlay.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                lightboxImage.src = '';
+                lightboxImage.alt = '';
+            }
 
-            // Fechar lightbox ao clicar fora da imagem
+            // Event delegation: qualquer imagem dentro da seção #galeria
+            const gallery = document.getElementById('galeria');
+            if (gallery) {
+                gallery.addEventListener('click', function(e) {
+                    const img = e.target.closest('img');
+                    if (!img || !gallery.contains(img)) return;
+                    openLightbox(img.src, img.alt);
+                    e.preventDefault();
+                });
+            }
+
+            // Fechar ações
+            lightboxClose.addEventListener('click', closeLightbox);
             lightboxOverlay.addEventListener('click', function(e) {
-                if (e.target === lightboxOverlay) {
-                    lightboxOverlay.style.display = 'none';
-                    document.body.style.overflow = ''; // Restaurar scroll
-                }
+                if (e.target === lightboxOverlay) closeLightbox();
             });
-
-            // Fechar lightbox com a tecla ESC
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && lightboxOverlay.style.display === 'flex') {
-                    lightboxOverlay.style.display = 'none';
-                    document.body.style.overflow = ''; // Restaurar scroll
-                }
+                if (e.key === 'Escape' && lightboxOverlay.style.display === 'flex') closeLightbox();
             });
-        });
+        })();
 
         function submitContactForm(form) {
             const name = document.getElementById('contact-name').value.trim();
