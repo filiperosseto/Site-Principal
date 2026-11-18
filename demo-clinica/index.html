@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NeuroAssist — Assistente Virtual | Clínica de Neurocirurgia</title>
+    <meta name="description" content="Demonstração de interface para a secretária virtual de uma clínica de neurocirurgia: agendamentos, equipe médica, convênios, exames e localização.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#245c6b">
+
+    <!-- Favicon provisório em SVG inline (não depende de arquivos externos) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245c6b'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='none' stroke='%23ffffff' stroke-width='1.8' opacity='.9'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23ffffff'/%3E%3C/svg%3E">
+
+    <!-- Tipografia: mesmas famílias usadas no site institucional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos exclusivos desta demonstração (não afetam o site institucional) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a class="skip-link" href="#chat-input">Ir para o campo de mensagem</a>
+
+    <!-- Biblioteca de ícones em SVG inline: evita bibliotecas externas -->
+    <svg class="svg-defs" aria-hidden="true" focusable="false" width="0" height="0">
+        <defs>
+            <symbol id="icon-mark" viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="20" fill="currentColor" opacity=".1"></circle>
+                <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="1.7" opacity=".45"></circle>
+                <path d="M16.5 31.5 21 18.5l11 5.5-5 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" opacity=".85"></path>
+                <path d="M16.5 31.5 21 18.5m0 0 11 5.5m-11-5.5c4.4-1.6 8.6-1 11 5.5m0 0-5 10m5-10c-3.3 1.5-6.6 3.4-10 5m5 5c-3.4-2.3-5.4-6.4-6.9-13.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity=".55"></path>
+                <circle cx="21" cy="18.5" r="2.7" fill="currentColor"></circle>
+                <circle cx="32" cy="24" r="2.2" fill="currentColor" opacity=".9"></circle>
+                <circle cx="27" cy="34" r="2.2" fill="currentColor" opacity=".9"></circle>
+                <circle cx="16.5" cy="31.5" r="2" fill="currentColor" opacity=".75"></circle>
+            </symbol>
+
+            <symbol id="icon-send" viewBox="0 0 24 24">
+                <path d="m22 2-7 20-4-9-9-4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+                <path d="M22 2 11 13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+            </symbol>
+
+            <symbol id="icon-refresh" viewBox="0 0 24 24">
+                <path d="M3.5 12a8.5 8.5 0 0 1 14.4-6.1L21 8.5M21 3.5v5h-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M20.5 12a8.5 8.5 0 0 1-14.4 6.1L3 15.5M3 20.5v-5h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </symbol>
+
+            <symbol id="icon-shield" viewBox="0 0 24 24">
+                <path d="M12 3 5 6v6c0 4.4 3 7.5 7 9 4-1.5 7-4.6 7-9V6l-7-3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
+                <path d="m9 12 2.1 2.1L15.2 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </symbol>
+
+            <symbol id="icon-info" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+                <path d="M12 11v5m0-8.2v.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+            </symbol>
+
+            <symbol id="icon-check" viewBox="0 0 24 24">
+                <path d="m5 12.5 4.3 4.3L19 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </symbol>
+        </defs>
+    </svg>
+    <main class="page">
+        <!-- Painel institucional da demonstração (desktop) -->
+        <aside class="brand-panel" aria-labelledby="brand-title">
+            <div class="brand-panel__identity">
+                <span class="brand-mark brand-mark--lg" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" focusable="false"><use href="#icon-mark"></use></svg>
+                </span>
+                <div>
+                    <p class="brand-panel__name">NeuroAssist</p>
+                    <p class="brand-panel__tagline">Assistente Virtual | Clínica de Neurocirurgia</p>
+                </div>
+            </div>
+
+            <p class="brand-panel__eyebrow">Demonstração de interface</p>
+            <h2 class="brand-panel__title" id="brand-title">Recepção digital com a serenidade que o paciente espera.</h2>
+            <p class="brand-panel__text">
+                Uma secretária virtual dedicada ao atendimento administrativo da clínica: agenda,
+                equipe médica, convênios, exames e orientações de acesso — com clareza, discrição
+                e acolhimento em cada contato.
+            </p>
+
+            <ul class="feature-list">
+                <li class="feature-list__item">
+                    <span class="feature-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#icon-check"></use></svg></span>
+                    Agendamento, confirmação e reagendamento de consultas
+                </li>
+                <li class="feature-list__item">
+                    <span class="feature-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#icon-check"></use></svg></span>
+                    Convênios, reembolso e informações administrativas
+                </li>
+                <li class="feature-list__item">
+                    <span class="feature-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#icon-check"></use></svg></span>
+                    Apresentação da equipe de neurocirurgia
+                </li>
+                <li class="feature-list__item">
+                    <span class="feature-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#icon-check"></use></svg></span>
+                    Preparo de exames, documentos e prazos de laudo
+                </li>
+                <li class="feature-list__item">
+                    <span class="feature-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#icon-check"></use></svg></span>
+                    Localização, estacionamento e horários de atendimento
+                </li>
+            </ul>
+
+            <div class="scope-card">
+                <p class="scope-card__title">Escopo desta versão</p>
+                <p class="scope-card__text">
+                    Interface funcional com respostas demonstrativas.
+                    <strong>Nenhuma IA está conectada</strong> nesta etapa. A integração com o
+                    assistente executado no Strata será feita por um backend HTTP seguro, sem
+                    credenciais no navegador.
+                </p>
+                <p class="scope-card__meta">
+                    <span class="status-dot status-dot--small" aria-hidden="true"></span>
+                    Ambiente de avaliação
+                </p>
+            </div>
+
+            <p class="brand-panel__footer">NeuroAssist · Demonstração para avaliação médica · 2026</p>
+        </aside>
+        <!-- Aplicação de chat -->
+        <section class="chat-card" aria-labelledby="chat-title">
+            <header class="chat-header">
+                <span class="brand-mark brand-mark--avatar" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" focusable="false"><use href="#icon-mark"></use></svg>
+                </span>
+
+                <div class="chat-header__identity">
+                    <h1 class="chat-header__title" id="chat-title">NeuroAssist</h1>
+                    <p class="chat-header__subtitle">Assistente Virtual | Clínica de Neurocirurgia</p>
+                    <p class="chat-header__status">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Disponível agora
+                    </p>
+                </div>
+
+                <button type="button" class="new-chat" id="new-chat-button" aria-label="Iniciar nova conversa" title="Iniciar nova conversa">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-refresh"></use></svg>
+                    <span class="new-chat__label">Nova conversa</span>
+                </button>
+            </header>
+
+            <p class="demo-banner" role="note">
+                <span class="demo-banner__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#icon-info"></use></svg></span>
+                <span><strong>Demonstração:</strong> respostas simuladas, sem inteligência artificial conectada.</span>
+            </p>
+
+            <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Conversa com a NeuroAssist">
+                <!-- Indicador de digitação (permanece como último elemento do log) -->
+                <div class="typing" id="typing-indicator" hidden aria-hidden="true">
+                    <span class="typing__avatar" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><use href="#icon-mark"></use></svg></span>
+                    <span class="typing__bubble">
+                        <span class="typing__dot"></span>
+                        <span class="typing__dot"></span>
+                        <span class="typing__dot"></span>
+                    </span>
+                </div>
+            </div>
+            <p class="sr-only" id="typing-status" role="status" aria-live="polite"></p>
+
+            <div class="quick-replies" id="quick-replies" role="group" aria-label="Perguntas frequentes">
+                <p class="quick-replies__label" aria-hidden="true">Atalhos</p>
+                <div class="quick-replies__scroll">
+                    <button type="button" class="chip" data-question="Agendar uma consulta">Agendar uma consulta</button>
+                    <button type="button" class="chip" data-question="Conhecer os médicos">Conhecer os médicos</button>
+                    <button type="button" class="chip" data-question="Convênios atendidos">Convênios atendidos</button>
+                    <button type="button" class="chip" data-question="Informações sobre exames">Informações sobre exames</button>
+                    <button type="button" class="chip" data-question="Localização e horários">Localização e horários</button>
+                </div>
+            </div>
+            <form class="composer" id="chat-form" novalidate>
+                <div class="composer__box">
+                    <label class="sr-only" for="chat-input">Mensagem para a assistente virtual</label>
+                    <textarea id="chat-input" name="message" rows="1" maxlength="800" placeholder="Escreva sua mensagem…" aria-describedby="composer-hint" autocomplete="off"></textarea>
+                    <button class="send-btn" id="send-button" type="submit" aria-label="Enviar mensagem" disabled>
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-send"></use></svg>
+                    </button>
+                </div>
+                <p class="composer__hint" id="composer-hint">Enter para enviar · Shift + Enter para nova linha</p>
+            </form>
+
+            <footer class="chat-disclaimer">
+                <span class="chat-disclaimer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#icon-shield"></use></svg></span>
+                <p>Este canal destina-se a informações administrativas e agendamentos. Não substitui avaliação médica. Em caso de emergência, procure atendimento de urgência.</p>
+            </footer>
+        </section>
+    </main>
+
+    <noscript>
+        <p class="noscript-warning">
+            Para visualizar a demonstração da assistente virtual, habilite o JavaScript no navegador.
+        </p>
+    </noscript>
+
+    <script src="script.js"></script>
+
+
+</body>
+</html>
