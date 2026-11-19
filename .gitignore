@@ -1,1 +1,4 @@
 .aider*
+
+# Backend local da NeuroAssist (execução exclusiva na máquina do desenvolvedor)
+backend-local/
