@@ -62,3 +62,23 @@ Gerar o cartão de novo:
   chrome --headless --no-pdf-header-footer \
          --print-to-pdf=Rosseto-Engenharia-Cartao.pdf _build/cartao.html
 
+
+QR PARA ADICIONAR O CONTATO (vCard)
+-----------------------------------
+Contato-QR.png  → imagem 1080 x 1920 para salvar no celular e mostrar na tela.
+                  A câmera lê o QR e abre a ficha de contato (nome, empresa,
+                  telefone, e-mail e site) para a pessoa tocar em "Adicionar".
+assets/qr-contato.png / .svg → o QR puro, para impressão (crachá, adesivo).
+
+Conteúdo embutido no QR (formato vCard 3.0):
+  FN:Filipe Nogueira Rosseto
+  ORG:Rosseto Engenharia
+  TITLE:Engenheiro Mecânico
+  TEL:+5515981307575
+  EMAIL:eng.rosseto@gmail.com
+  URL:https://rossetoengenharia.com.br/
+
+Como usar na feira: abra a imagem no celular (galeria) e mostre a tela.
+A pessoa aponta a câmera — não precisa de aplicativo nem internet.
+
+Para gerar de novo: _build/build_vcard.py

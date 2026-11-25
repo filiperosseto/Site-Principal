@@ -32,8 +32,37 @@ EC_M = {
     4: (18, [(2, 32)]),
     5: (24, [(2, 43)]),
     6: (16, [(4, 27)]),
+    7: (18, [(4, 31)]),
+    8: (22, [(2, 38), (2, 39)]),
+    9: (22, [(3, 36), (2, 37)]),
+    10: (26, [(4, 43), (1, 44)]),
 }
 EC_LEVEL_M_BITS = 0b00
+
+# alignment pattern centres per version
+ALIGN = {
+    1: [], 2: [6, 18], 3: [6, 22], 4: [6, 26], 5: [6, 30], 6: [6, 34],
+    7: [6, 22, 38], 8: [6, 24, 42], 9: [6, 26, 46], 10: [6, 28, 50],
+}
+
+
+def _align_centers(version: int, n: int) -> list[tuple[int, int]]:
+    pos = ALIGN[version]
+    out = []
+    for r in pos:
+        for c in pos:
+            if (r == 6 and c == 6) or (r == 6 and c == n - 7) or (r == n - 7 and c == 6):
+                continue
+            out.append((r, c))
+    return out
+
+
+def _version_bits(version: int) -> int:
+    """BCH(18,6) version information for QR versions >= 7."""
+    d = version << 12
+    while d.bit_length() >= 0x1F25.bit_length():
+        d ^= 0x1F25 << (d.bit_length() - 0x1F25.bit_length())
+    return (version << 12) | d
 
 
 def _rs_generator(n: int) -> list[int]:
@@ -64,7 +93,7 @@ def encode_payload(text: str, version: int | None = None) -> tuple[int, list[int
     """Return (version, interleaved codewords, block list)."""
     data = text.encode("utf-8")
     if version is None:
-        for v in range(1, 7):
+        for v in range(1, 11):
             ec_len, groups = EC_M[v]
             capacity = sum(b * d for b, d in groups)
             if 4 + 8 + 8 * len(data) <= capacity * 8:
@@ -148,10 +177,14 @@ def _reserved(n: int, version: int) -> list[list[bool]]:
     for i in range(8, n - 8):
         m[6][i] = True
         m[i][6] = True
-    if version >= 2:
-        for r in range(n - 9, n - 4):
-            for c in range(n - 9, n - 4):
-                m[r][c] = True
+    for r, c in _align_centers(version, n):
+        for dr in range(-2, 3):
+            for dc in range(-2, 3):
+                m[r + dr][c + dc] = True
+    if version >= 7:
+        for i in range(18):
+            m[i // 3][n - 11 + i % 3] = True
+            m[n - 11 + i % 3][i // 3] = True
     for i in range(15):
         if i < 6:
             m[i][8] = True
@@ -204,6 +237,15 @@ def _place_format(m, mask: int, real: bool = True) -> None:
         else:
             m[8][15 - i - 1] = mod
     m[n - 8][8] = True
+
+
+def _place_version(m, version: int) -> None:
+    n = len(m)
+    bits = _version_bits(version)
+    for i in range(18):
+        mod = bool((bits >> i) & 1)
+        m[i // 3][n - 11 + i % 3] = mod
+        m[n - 11 + i % 3][i // 3] = mod
 
 
 def _mask_fn(mask: int, i: int, j: int) -> bool:
@@ -305,8 +347,10 @@ def build(text: str) -> tuple[int, list[list[bool]]]:
             m[6][i] = i % 2 == 0
         if m[i][6] is None:
             m[i][6] = i % 2 == 0
-    if version >= 2:
-        _alignment(m, n - 7, n - 7)
+    for r, c in _align_centers(version, n):
+        _alignment(m, r, c)
+    if version >= 7:
+        _place_version(m, version)
     _place_format(m, 0, real=False)
     _place_format(m, 0, real=True)
 
@@ -429,8 +473,10 @@ def _function_mask(n: int, version: int) -> list[list[bool]]:
     for i in range(8, n - 8):
         m[6][i] = True
         m[i][6] = True
-    if version >= 2:
-        _alignment(m, n - 7, n - 7)
+    for r, c in _align_centers(version, n):
+        _alignment(m, r, c)
+    if version >= 7:
+        _place_version(m, version)
     _place_format(m, 0, real=False)
     return [[bool(v) for v in row] for row in m]
 
