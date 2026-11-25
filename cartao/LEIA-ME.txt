@@ -1,0 +1,64 @@
+CARTÃO DIGITAL — ROSSETO ENGENHARIA
+=====================================
+
+O que tem nesta pasta
+---------------------
+Rosseto-Engenharia-Cartao.pdf        → O CARTÃO: 90 x 50 mm, frente e verso.
+Rosseto-Engenharia-Apresentacao.pdf  → versão completa, 3 páginas A4 (opcional).
+index.html                           → cartão interativo para abrir no celular.
+Filipe-Rosseto-Engenharia.vcf        → contato pronto para importar na agenda.
+assets/                              → logo, foto e QR codes usados nos arquivos.
+_build/                              → arquivos de montagem (não precisa abrir).
+
+
+O cartão em PDF (90 x 50 mm, frente e verso)
+--------------------------------------------
+Página 1 — frente: logo, nome, "Engenheiro Mecânico", CREA-SP + CONFEA, foto,
+WhatsApp (com ícone), e-mail e site. Telefone, e-mail e site são clicáveis.
+
+Página 2 — verso: "O que eu faço", em seis blocos com subtítulo:
+  ⌄ Homologação veicular — reboques, food trucks, motorhome e carrocerias.
+  ⌄ Transformações veiculares — adaptações e transformações como: van,
+    ambulância, veículo funerário etc.
+  ⌄ Responsável técnico / ART — fabricantes, transformadoras e empresas
+    mecânicas. ART de projetos.
+  ⌄ Perícia judicial — perito nomeado ou assistente técnico.
+  ⌄ Laudos — avaliação de bens, projetos instalados e equipamentos.
+  ⌄ Consultorias e projetos 3D — estruturas metálicas, peças, componentes,
+    reboques e semirreboques.
+
+Sem QR code: clicando no número de telefone (ou no ícone do WhatsApp) a conversa
+já abre no WhatsApp com a mensagem padrão "Olá! Vim pelo seu cartão."
+
+Para imprimir: o arquivo já está em 90 x 50 mm. Peça impressão frente e verso.
+Para gráfica, solicitar a versão com sangria de 3 mm.
+
+
+O cartão interativo (index.html)
+--------------------------------
+Abre no celular com os mesmos seis serviços. Botões: WhatsApp, site, cartão em
+PDF, e-mail, LinkedIn, salvar contato (.vcf) e compartilhar. No fim, o formulário
+nome/empresa/necessidade — a mensagem chega no seu WhatsApp pronta, e o contato
+do fabricante fica na conversa.
+
+
+Publicar no site (recomendado)
+------------------------------
+A pasta foi feita para ficar em https://rossetoengenharia.com.br/cartao/
+
+1. Copie a pasta para a raiz do repositório com o nome "cartao".
+2. git add cartao && git commit -m "cartão digital" && git push
+3. Aguarde o GitHub Pages publicar (1–2 min).
+
+
+Como editar
+-----------
+- Cartão em PDF: _build/cartao.html (depois gere o PDF de novo).
+- Cartão interativo: index.html.
+- Fotos e logo: substitua os arquivos em assets/ mantendo os nomes.
+- QR codes: _build/build_assets.py (Python com Pillow).
+
+Gerar o cartão de novo:
+  chrome --headless --no-pdf-header-footer \
+         --print-to-pdf=Rosseto-Engenharia-Cartao.pdf _build/cartao.html
+

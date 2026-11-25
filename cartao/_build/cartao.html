@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Rosseto Engenharia — Filipe Nogueira Rosseto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0e2340;
+    --steel:#2e6da4;
+    --accent:#f5a623;
+    --wa:#25d366;
+    --ink:#10233c;
+    --muted:#64748b;
+    --head:'Montserrat','Bahnschrift','Segoe UI',Arial,sans-serif;
+    --body:'Inter','Segoe UI',Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#fff}
+  body{font-family:var(--body);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:90mm 50mm;margin:0}
+  a{color:inherit;text-decoration:none}
+
+  .card{position:relative;width:90mm;height:50mm;overflow:hidden;background:var(--navy);page-break-after:always}
+  .card:last-child{page-break-after:auto}
+  .wm{position:absolute;right:-9mm;bottom:-13mm;width:52mm;opacity:.055;transform:rotate(-6deg)}
+  .wm img{width:100%;display:block}
+  .grid{position:absolute;inset:0;opacity:.09;background-image:
+      repeating-linear-gradient(0deg,rgba(255,255,255,.5) 0 1px,transparent 1px 6mm),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 1px,transparent 1px 6mm);
+      -webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);
+              mask-image:linear-gradient(180deg,#000,transparent 70%)}
+  .white{position:absolute;inset:0;background:#fff;clip-path:polygon(0 0, 57mm 0, 52mm 50mm, 0 50mm)}
+  .edge{position:absolute;inset:0;background:var(--accent);clip-path:polygon(56.6mm 0, 57.8mm 0, 52.8mm 50mm, 51.6mm 50mm)}
+
+  /* ---------------- frente ---------------- */
+  .logo{position:absolute;left:4mm;top:3mm;width:20.5mm;display:block}
+  .photo{position:absolute;left:66.4mm;top:5.2mm;width:17.2mm;height:17.2mm;border-radius:50%;padding:.6mm;
+         background:linear-gradient(150deg,var(--accent),#c97f10)}
+  .photo img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;border:.35mm solid #fff}
+  h1{position:absolute;left:4mm;top:21.2mm;font-family:var(--head);font-weight:800;font-size:10pt;line-height:1;letter-spacing:-.015em;color:var(--navy);white-space:nowrap}
+  .role{position:absolute;left:4mm;top:25.7mm;font-family:var(--head);font-weight:700;font-size:3.8pt;letter-spacing:.2em;text-transform:uppercase;color:var(--steel)}
+  .crea{position:absolute;left:4mm;top:28.3mm;font-size:3.6pt;letter-spacing:.04em;color:var(--muted)}
+  .rule{position:absolute;left:4mm;top:30.8mm;width:6.5mm;height:.45mm;background:var(--accent)}
+  .contacts{position:absolute;left:4mm;top:33.8mm;display:flex;flex-direction:column;gap:2.3mm}
+  .contacts a{display:flex;align-items:center;gap:1.4mm;font-size:5pt;color:var(--ink);width:max-content;line-height:1}
+  .contacts svg{width:2.5mm;height:2.5mm;stroke:var(--steel);fill:none;stroke-width:1.9;flex:0 0 auto}
+  .contacts .wa-ico{width:2.7mm;height:2.7mm;fill:var(--wa);stroke:none}
+  .contacts .site{color:var(--steel);font-weight:600;border-bottom:.25mm solid rgba(46,109,164,.45);padding-bottom:.2mm}
+
+  .rtag{position:absolute;left:61.2mm;top:27.4mm;width:24.5mm;color:#fff}
+  .rtag .bar{width:6mm;height:.5mm;background:var(--accent);margin-bottom:2.4mm}
+  .rtag .t{font-family:var(--head);font-weight:700;font-size:4.9pt;line-height:1.32}
+  .rtag .s{font-size:3.6pt;line-height:1.5;color:#b9cbe0;margin-top:1.9mm}
+  .rfoot{position:absolute;left:61.2mm;bottom:4mm;font-size:3.3pt;letter-spacing:.1em;text-transform:uppercase;color:#8ba4bd}
+
+  /* ---------------- verso ---------------- */
+  .vhead{position:absolute;left:4mm;right:4mm;top:3.6mm;display:flex;align-items:center;justify-content:space-between}
+  .vbrand{display:flex;align-items:center;gap:1.6mm}
+  .vbrand .disc{position:relative;width:5.2mm;height:5.2mm;border-radius:50%;background:#fff;display:grid;place-items:center}
+  .vbrand .disc > *{grid-area:1/1}
+  .vbrand .disc span{font-family:var(--head);font-weight:800;font-size:2.9pt;color:var(--navy);line-height:1}
+  .vbrand .disc img.seal{width:5.2mm;height:5.2mm;display:block;border-radius:0}
+  .vbrand b{font-family:var(--head);font-size:3.7pt;letter-spacing:.2em;font-weight:800;color:#fff}
+  .vhead .lbl{font-family:var(--head);font-weight:700;font-size:3.3pt;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+
+  .cols{position:absolute;left:4mm;right:4mm;top:10.6mm;display:grid;grid-template-columns:1fr 1fr;column-gap:5.4mm;row-gap:4.2mm}
+  .svc{break-inside:avoid}
+  .st{display:flex;align-items:center;gap:1.5mm;font-family:var(--head);font-weight:700;font-size:4.5pt;color:#fff;line-height:1.2}
+  .chev{width:1.35mm;height:1.35mm;border-right:.26mm solid var(--accent);border-bottom:.26mm solid var(--accent);transform:rotate(45deg);flex:0 0 auto;margin-top:-.6mm}
+  .svc p{font-size:3.65pt;line-height:1.48;color:#b9cbe0;margin:.8mm 0 0 2.9mm}
+
+  .vfoot{position:absolute;left:4mm;right:4mm;bottom:3.4mm;display:flex;justify-content:space-between;align-items:center;
+         font-size:3.2pt;color:#8ba4bd;letter-spacing:.04em;border-top:.2mm solid rgba(255,255,255,.14);padding-top:1.8mm}
+  .vfoot b{color:#fff;font-weight:600;letter-spacing:.02em}
+</style>
+</head>
+<body>
+
+<!-- ================= FRENTE ================= -->
+<div class="card">
+  <div class="wm"><img src="../assets/emblema-branco.png" alt=""></div>
+  <div class="white"></div>
+  <div class="edge"></div>
+
+  <img class="logo" src="../assets/logo.png" alt="Rosseto Engenharia">
+  <div class="photo"><img src="../assets/foto.jpg" alt="Filipe Nogueira Rosseto"></div>
+
+  <h1>Filipe Nogueira Rosseto</h1>
+  <div class="role">Engenheiro Mecânico</div>
+  <div class="crea">CREA-SP 5068959316 · CONFEA 261153708-9</div>
+  <div class="rule"></div>
+
+  <div class="contacts">
+    <a href="https://wa.me/5515981307575?text=Ol%C3%A1!%20Vim%20pelo%20seu%20cart%C3%A3o.">
+      <svg viewBox="0 0 24 24"><path d="M21 16.9v2.5a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.6 2 2 0 0 1 3.1 1.4h2.5a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L6.7 9.3a16 16 0 0 0 6 6l1.2-1.1a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
+      (15) 98130-7575
+      <svg class="wa-ico" viewBox="0 0 24 24"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.004c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.02zm-7.01 15.24h-.004a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+    </a>
+    <a href="mailto:eng.rosseto@gmail.com">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      eng.rosseto@gmail.com
+    </a>
+    <a class="site" href="https://rossetoengenharia.com.br/">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
+      rossetoengenharia.com.br
+    </a>
+  </div>
+
+  <div class="rtag">
+    <div class="bar"></div>
+    <div class="t">Projetos, homologações e perícia judicial.</div>
+    <div class="s">Engenharia mecânica especializada, do projeto à emissão do documento.</div>
+  </div>
+  <div class="rfoot">Atendimento em todo o Brasil</div>
+</div>
+
+<!-- ================= VERSO ================= -->
+<div class="card">
+  <div class="grid"></div>
+  <div class="wm"><img src="../assets/emblema-branco.png" alt=""></div>
+
+  <div class="vhead">
+    <div class="vbrand">
+      <div class="disc"><span>R</span><img class="seal" src="../assets/selo.jpg" alt=""></div>
+      <b>ROSSETO ENGENHARIA</b>
+    </div>
+    <div class="lbl">O que eu faço</div>
+  </div>
+
+  <div class="cols">
+    <div class="svc">
+      <div class="st"><span class="chev"></span>Homologação veicular</div>
+      <p>Reboques, food trucks, motorhome e carrocerias em geral.</p>
+    </div>
+    <div class="svc">
+      <div class="st"><span class="chev"></span>Transformações veiculares</div>
+      <p>Adaptações e transformações como: van, ambulância, veículo funerário etc.</p>
+    </div>
+    <div class="svc">
+      <div class="st"><span class="chev"></span>Responsável técnico / ART</div>
+      <p>Fabricantes, transformadoras e empresas mecânicas. ART de projetos.</p>
+    </div>
+    <div class="svc">
+      <div class="st"><span class="chev"></span>Perícia judicial</div>
+      <p>Perito nomeado ou assistente técnico.</p>
+    </div>
+    <div class="svc">
+      <div class="st"><span class="chev"></span>Laudos</div>
+      <p>Avaliação de bens, projetos instalados e equipamentos.</p>
+    </div>
+    <div class="svc">
+      <div class="st"><span class="chev"></span>Consultorias e projetos 3D</div>
+      <p>Estruturas metálicas, peças, componentes, reboques e semirreboques.</p>
+    </div>
+  </div>
+
+  <div class="vfoot">
+    <span><b>rossetoengenharia.com.br</b></span>
+    <span>eng.rosseto@gmail.com · (15) 98130-7575</span>
+  </div>
+</div>
+
+</body>
+</html>
