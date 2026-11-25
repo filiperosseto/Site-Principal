@@ -97,7 +97,6 @@ mark.save(os.path.join(ASSETS, "emblema-branco.png"), optimize=True)
 # ---------------------------------------------------------------- QRs
 TARGETS = {
     "site": "https://rossetoengenharia.com.br/",
-    "card": "https://rossetoengenharia.com.br/cartao/",
     "wa": "https://wa.me/5515981307575?text=Ol%C3%A1!%20Vim%20pelo%20seu%20cart%C3%A3o.",
 }
 for name, payload in TARGETS.items():

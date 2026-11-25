@@ -62,23 +62,24 @@ Gerar o cartão de novo:
   chrome --headless --no-pdf-header-footer \
          --print-to-pdf=Rosseto-Engenharia-Cartao.pdf _build/cartao.html
 
+QR DE CONTATO
+-------------
+Contato-QR.png        -> PRINCIPAL. QR que abre a página do cartão (funciona em
+                         qualquer celular, inclusive Xiaomi): a pessoa aponta a
+                         câmera, a página abre e ela toca em "Salvar contato".
+Contato-QR-vcard.png  -> Alternativa: QR de vCard. Em iPhone e no Google Lens a
+                         ficha de contato abre direto para tocar em "Adicionar".
+                         Em alguns Androids (scanner da fabricante) ele só mostra
+                         o texto, por isso não é o principal.
+assets/qr-link.png / .svg    -> QR puro da página (para impressão)
+assets/qr-vcard.png / .svg   -> QR puro do vCard (para impressão)
 
-QR PARA ADICIONAR O CONTATO (vCard)
------------------------------------
-Contato-QR.png  → imagem 1080 x 1920 para salvar no celular e mostrar na tela.
-                  A câmera lê o QR e abre a ficha de contato (nome, empresa,
-                  telefone, e-mail e site) para a pessoa tocar em "Adicionar".
-assets/qr-contato.png / .svg → o QR puro, para impressão (crachá, adesivo).
-
-Conteúdo embutido no QR (formato vCard 3.0):
-  FN:Filipe Nogueira Rosseto
-  ORG:Rosseto Engenharia
-  TITLE:Engenheiro Mecânico
-  TEL:+5515981307575
-  EMAIL:eng.rosseto@gmail.com
+Conteúdo do vCard:
+  FN:Filipe Nogueira Rosseto · ORG:Rosseto Engenharia · TITLE:Engenheiro Mecânico
+  TEL:+5515981307575 · EMAIL:eng.rosseto@gmail.com
   URL:https://rossetoengenharia.com.br/
 
-Como usar na feira: abra a imagem no celular (galeria) e mostre a tela.
-A pessoa aponta a câmera — não precisa de aplicativo nem internet.
+Como usar na feira: abra a imagem no celular (galeria), em tela cheia, e mostre.
+Não precisa de aplicativo nem de internet para ler o QR.
 
 Para gerar de novo: _build/build_vcard.py
