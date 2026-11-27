@@ -114,6 +114,11 @@
 
         .lightbox-close:hover { background-color: rgba(255,255,255,1); }
 
+          /* Prevent absolute overlays from blocking clicks when hidden.
+              Allow pointer events only on hover so images remain clickable. */
+          .group > .absolute { pointer-events: none; }
+          .group:hover > .absolute { pointer-events: auto; }
+
         .lightbox-image {
             max-width: 100%;
             max-height: 90vh;
@@ -502,12 +507,9 @@
             </div>
 
             <!-- Logos Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 fade-in-section">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16 fade-in-section">
                 <div class="h-24 bg-white rounded flex items-center justify-center shadow-sm p-4 hover:shadow-md transition-all">
                             <img src="images/partners/clima-metalurgica.jpg" alt="Clima Metalúrgica" class="max-h-16 object-contain">
-                </div>
-                <div class="h-24 bg-white rounded flex items-center justify-center shadow-sm p-4 hover:shadow-md transition-all">
-                            <img src="images/partners/dexco.png" alt="Dexco" class="max-h-16 object-contain">
                 </div>
                 <div class="h-24 bg-white rounded flex items-center justify-center shadow-sm p-4 hover:shadow-md transition-all">
                             <img src="images/partners/mc-manutencao.jpg" alt="MC Manutenção Industrial" class="max-h-16 object-contain">
